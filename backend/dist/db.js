@@ -19,8 +19,9 @@ exports.pool = new Pool({
     connectionString,
     ssl: false // Disable SSL for local database connection
 });
-exports.pool.on('connect', () => {
-    // Database client connected
+exports.pool.on('connect', (client) => {
+    client.query("SET client_encoding TO 'UTF8'")
+        .catch(err => console.error('Error setting client encoding to UTF8', err));
 });
 exports.pool.on('error', (err) => {
     console.error('Unexpected error on idle database client', err);

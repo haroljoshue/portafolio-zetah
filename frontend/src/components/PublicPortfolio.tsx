@@ -8,6 +8,7 @@ import ThreeDWord from './ThreeDWord.tsx';
 import ThreeDTilt from './ThreeDTilt.tsx';
 import MiniGame from './MiniGame.tsx';
 import { translations, Language } from '../utils/translations.ts';
+import { API_URL } from '../utils/api.ts';
 
 
 interface Profile {
@@ -83,7 +84,6 @@ export default function PublicPortfolio({
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [activeTab, setActiveTab] = useState<'videos' | 'photos'>('videos');
   const [active3DModel, setActive3DModel] = useState<'camera' | 'zetah' | 'alpacity'>('camera');
-  const [showGame, setShowGame] = useState(false);
   
   // Newsletter state
   const [leadEmail, setLeadEmail] = useState('');
@@ -107,27 +107,27 @@ export default function PublicPortfolio({
 
   useEffect(() => {
     // Fetch all public data
-    fetch('/api/profile')
+    fetch(`${API_URL}/api/profile`)
       .then(res => res.json())
       .then(data => setProfile(data))
       .catch(err => console.error('Error fetching profile:', err));
 
-    fetch('/api/notices')
+    fetch(`${API_URL}/api/notices`)
       .then(res => res.json())
       .then(data => setNotices(data.filter((n: Notice) => n.is_active)))
       .catch(err => console.error('Error fetching notices:', err));
 
-    fetch('/api/publications')
+    fetch(`${API_URL}/api/publications`)
       .then(res => res.json())
       .then(data => setPublications(data))
       .catch(err => console.error('Error fetching publications:', err));
 
-    fetch('/api/videos')
+    fetch(`${API_URL}/api/videos`)
       .then(res => res.json())
       .then(data => setVideos(data))
       .catch(err => console.error('Error fetching videos:', err));
 
-    fetch('/api/photos')
+    fetch(`${API_URL}/api/photos`)
       .then(res => res.json())
       .then(data => setPhotos(data))
       .catch(err => console.error('Error fetching photos:', err));
@@ -159,7 +159,7 @@ export default function PublicPortfolio({
     setNewsLoading(true);
 
     try {
-      const res = await fetch('/api/leads', {
+      const res = await fetch(`${API_URL}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: leadEmail })

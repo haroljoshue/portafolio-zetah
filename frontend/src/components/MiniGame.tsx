@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaGamepad } from 'react-icons/fa';
+import { API_URL } from '../utils/api.ts';
 
 interface MiniGameProps {
   language: 'es' | 'en';
@@ -25,7 +26,7 @@ export default function MiniGame({ language }: MiniGameProps) {
     setWinnerSuccess('');
 
     try {
-      const res = await fetch('/api/winners', {
+      const res = await fetch(`${API_URL}/api/winners`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -142,7 +143,7 @@ export default function MiniGame({ language }: MiniGameProps) {
       h: number;
       speed: number;
       destroyed?: boolean;
-      type: 'thief' | 'bullet_low' | 'bullet_high';
+      type: 'thief' | 'bullet_low' | 'bullet_high' | 'bullet';
     }
 
     interface Projectile {

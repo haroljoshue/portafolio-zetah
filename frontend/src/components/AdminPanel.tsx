@@ -5,6 +5,14 @@ import {
   FaSun, FaMoon, FaMailBulk, FaHistory, FaFolderOpen, FaEdit, FaTimes, FaTrophy
 } from 'react-icons/fa';
 import { Language } from '../utils/translations.ts';
+import { API_URL } from '../utils/api.ts';
+
+const fetch = (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+  if (typeof input === 'string' && input.startsWith('/api')) {
+    return window.fetch(`${API_URL}${input}`, init);
+  }
+  return window.fetch(input, init);
+};
 
 interface AdminPanelProps {
   language: Language;

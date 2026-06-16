@@ -84,6 +84,7 @@ export default function PublicPortfolio({
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [activeTab, setActiveTab] = useState<'videos' | 'photos'>('videos');
   const [active3DModel, setActive3DModel] = useState<'camera' | 'zetah' | 'alpacity'>('camera');
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   
   // Newsletter state
   const [leadEmail, setLeadEmail] = useState('');
@@ -106,6 +107,12 @@ export default function PublicPortfolio({
   const t = translations[language];
 
   useEffect(() => {
+    // Check mobile state
+    const handleWindowResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleWindowResize);
+
     // Fetch all public data
     fetch(`${API_URL}/api/profile`)
       .then(res => res.json())
@@ -131,6 +138,10 @@ export default function PublicPortfolio({
       .then(res => res.json())
       .then(data => setPhotos(data))
       .catch(err => console.error('Error fetching photos:', err));
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
   }, []);
 
   const openDrawer = (type: 'quien' | 'contacto' | 'redes') => {
@@ -264,9 +275,35 @@ export default function PublicPortfolio({
             </div>
             <div className="hero-content-right">
               <div className="three-d-viewer-wrapper">
-                {active3DModel === 'camera' && <ThreeDCamera />}
-                {active3DModel === 'zetah' && <ThreeDWord text="ZetaH" color="purple" />}
-                {active3DModel === 'alpacity' && <ThreeDWord text="AlpaCity" color="cyan" />}
+                {!isMobile && active3DModel === 'camera' && <ThreeDCamera />}
+                {!isMobile && active3DModel === 'zetah' && <ThreeDWord text="ZetaH" color="purple" />}
+                {!isMobile && active3DModel === 'alpacity' && <ThreeDWord text="AlpaCity" color="cyan" />}
+                
+                {isMobile && (
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '100%',
+                    minHeight: '220px',
+                    color: 'var(--text-secondary)',
+                    fontFamily: 'monospace',
+                    fontSize: '0.85rem',
+                    border: '1px dashed rgba(0, 210, 255, 0.15)',
+                    borderRadius: '8px',
+                    padding: '1.5rem',
+                    textAlign: 'center',
+                    background: 'rgba(255,255,255,0.01)'
+                  }}>
+                    <span>✨ {language === 'es' ? 'Modelo 3D interactivo' : 'Interactive 3D model'}</span>
+                    <span style={{ fontSize: '0.75rem', marginTop: '0.5rem', opacity: 0.7 }}>
+                      {language === 'es' 
+                        ? '(Disponible en pantallas más grandes)' 
+                        : '(Available on larger screens)'}
+                    </span>
+                  </div>
+                )}
                 
                 <div className="three-d-selector-tabs">
                   <button 

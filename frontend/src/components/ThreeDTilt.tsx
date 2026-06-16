@@ -10,6 +10,7 @@ export default function ThreeDTilt({ children, className = '', onClick }: ThreeD
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.innerWidth < 768) return;
     const card = cardRef.current;
     if (!card) return;
 

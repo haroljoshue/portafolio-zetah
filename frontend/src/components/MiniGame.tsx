@@ -263,10 +263,15 @@ export default function MiniGame({ language }: MiniGameProps) {
     };
     canvas.addEventListener('start-game', onStart);
 
-    // Resize monitor
+    // Resize monitor (Width change only to prevent mobile scrollbars resize loop)
+    let lastGameWidth = containerRef.current ? containerRef.current.offsetWidth : 0;
     const resizeObserver = new ResizeObserver(() => {
       if (containerRef.current) {
-        width = canvas.width = containerRef.current.offsetWidth;
+        const currentWidth = containerRef.current.offsetWidth;
+        if (currentWidth !== lastGameWidth) {
+          lastGameWidth = currentWidth;
+          width = canvas.width = currentWidth;
+        }
       }
     });
     if (containerRef.current) {

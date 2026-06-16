@@ -665,3 +665,12 @@ initWinnersTable();
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+// Ruta raíz para verificar que el backend funciona
+app.get('/', (req, res) => {
+  res.json({ 
+    message: "¡Backend de Zetah funcionando perfectamente en 2026! 🚀", 
+    status: "online" 
+  });
+});
+

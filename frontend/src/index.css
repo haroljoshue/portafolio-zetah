@@ -1282,13 +1282,13 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 /* Admin Layout Columns */
 .admin-layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
   gap: 2rem;
 }
 
 @media(max-width: 768px) {
   .admin-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1396,13 +1396,13 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 /* Admin Split Layout */
 .admin-split-layout {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
   gap: 2rem;
 }
 
 @media(max-width: 1024px) {
   .admin-split-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -2443,6 +2443,25 @@ body {
   background: #161b22;
   box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
 }
+
+/* Responsive Tables & Scroll Overrides */
+@media(max-width: 768px) {
+  .admin-table th, .admin-table td {
+    padding: 0.65rem 0.5rem !important;
+    font-size: 0.78rem !important;
+  }
+  .table-thumb {
+    width: 45px !important;
+    height: 28px !important;
+  }
+  .item-actions {
+    gap: 0.25rem !important;
+  }
+  .btn-icon {
+    padding: 0.35rem !important;
+  }
+}
+
 
 
 

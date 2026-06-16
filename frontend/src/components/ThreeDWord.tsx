@@ -221,9 +221,14 @@ export default function ThreeDWord({ text, color = 'cyan' }: ThreeDWordProps) {
 
     window.addEventListener('mousemove', handleMouseMove);
 
+    let lastWidth = canvas.offsetWidth;
     const handleResize = () => {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+      const currentWidth = canvas.offsetWidth;
+      if (currentWidth !== lastWidth) {
+        lastWidth = currentWidth;
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      }
     };
     window.addEventListener('resize', handleResize);
 

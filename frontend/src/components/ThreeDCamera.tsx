@@ -166,10 +166,15 @@ export default function ThreeDCamera() {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Resize handler
+    // Resize handler (Width change only to prevent mobile scrollbars resize loop)
+    let lastWidth = canvas.offsetWidth;
     const handleResize = () => {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+      const currentWidth = canvas.offsetWidth;
+      if (currentWidth !== lastWidth) {
+        lastWidth = currentWidth;
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      }
     };
     window.addEventListener('resize', handleResize);
 

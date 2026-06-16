@@ -84,7 +84,7 @@ export default function PublicPortfolio({
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [activeTab, setActiveTab] = useState<'videos' | 'photos'>('videos');
   const [active3DModel, setActive3DModel] = useState<'camera' | 'zetah' | 'alpacity'>('camera');
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const isMobile = window.innerWidth < 768;
   
   // Newsletter state
   const [leadEmail, setLeadEmail] = useState('');
@@ -99,7 +99,6 @@ export default function PublicPortfolio({
   // Modal view states
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-
   // Footer image state (changes based on social icon interaction)
   const [footerIcon, setFooterIcon] = useState('recursos/ico.png');
 
@@ -107,12 +106,6 @@ export default function PublicPortfolio({
   const t = translations[language];
 
   useEffect(() => {
-    // Check mobile state
-    const handleWindowResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    window.addEventListener('resize', handleWindowResize);
-
     // Fetch all public data
     fetch(`${API_URL}/api/profile`)
       .then(res => res.json())
@@ -138,10 +131,6 @@ export default function PublicPortfolio({
       .then(res => res.json())
       .then(data => setPhotos(data))
       .catch(err => console.error('Error fetching photos:', err));
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
   }, []);
 
   const openDrawer = (type: 'quien' | 'contacto' | 'redes') => {

@@ -78,8 +78,13 @@ const getTransporter = () => {
     const user = process.env.EMAIL_REMITENTE || 'haroljoshue17@gmail.com';
     const pass = process.env.APP_PASSWORD_GMAIL || 'srfnhgzfraqkxqoe';
     return nodemailer_1.default.createTransport({
-        service: 'gmail',
-        auth: { user, pass }
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: { user, pass },
+        tls: {
+            rejectUnauthorized: false
+        }
     });
 };
 /**

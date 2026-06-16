@@ -1341,6 +1341,9 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 
 .admin-main-content {
   padding: 2.5rem;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .admin-section-wrapper h2 {
@@ -1942,6 +1945,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   border-collapse: collapse;
   text-align: left;
   font-size: 0.9rem;
+  table-layout: auto;
 }
 
 .admin-table th {
@@ -1958,6 +1962,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   border-bottom: 1px solid var(--border-light);
   color: var(--text-secondary);
   vertical-align: middle;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .admin-table tr:hover {

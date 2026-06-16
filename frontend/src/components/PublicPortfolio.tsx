@@ -6,7 +6,7 @@ import {
 import ThreeDCamera from './ThreeDCamera.tsx';
 import ThreeDWord from './ThreeDWord.tsx';
 import ThreeDTilt from './ThreeDTilt.tsx';
-import MiniGame from './MiniGame.tsx';
+// import MiniGame from './MiniGame.tsx';
 import { translations, Language } from '../utils/translations.ts';
 import { API_URL } from '../utils/api.ts';
 
@@ -441,13 +441,12 @@ export default function PublicPortfolio({
         )}
       </section>
 
-      {/* MiniGame (Zetah Runner) Section */}
+      {/* MiniGame (Zetah Runner) Section - Temporally disabled for mobile testing
       <section className="gamification-section container animate-fade" style={{ textAlign: 'center', marginBottom: '6rem', marginTop: '4rem' }}>
         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <h2 className="section-title">{t.sectionZetahGame}</h2>
         </div>
         
-        {/* Rules / Description premium container */}
         <div className="glass" style={{ 
           maxWidth: '600px', 
           margin: '0 auto 2rem auto', 
@@ -473,6 +472,7 @@ export default function PublicPortfolio({
 
         <MiniGame language={language} />
       </section>
+      */}
 
       {/* Newsletter lead capture section (Quiero más información) */}
       <section className="newsletter-section">
